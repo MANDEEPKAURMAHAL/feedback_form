@@ -1,0 +1,112 @@
+<form style="text-align: center" action="/feedback" method="POST">
+    <div class="container">
+        <h1>Feedback Form </h1>
+        <div>
+            <label for="Username"><b>Username </b></label>
+            <input type="text" placeholder="Enter Username" name="Username" id="Username" required>
+        </div>
+        <br>
+        <div>
+            <label for="Feedback"><b>Feedback</b></label>
+            <input type="text" placeholder="Enter Feedback" name="Feedback" id="Feedback" required>
+        </div>
+        <br>
+        <button type="submit" class="registerbtn">Submit</button>
+    </div>
+</form>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> User Details</title>
+
+    <!-- INCLUDING JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+
+    <!-- CSS FOR STYLING THE PAGE -->
+    <style>
+        table {
+            margin: 0 auto;
+            font-size: large;
+            border: 1px solid black;
+        }
+
+        h1 {
+            text-align: center;
+            color: #006600;
+            font-size: xx-large;
+            font-family: 'Gill Sans',
+                'Gill Sans MT', ' Calibri',
+                'Trebuchet MS', 'sans-serif';
+        }
+
+        td {
+            background-color: #E4F5D4;
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            font-weight: bold;
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        td {
+            font-weight: lighter;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <h1>Feedback List</h1>
+
+        <!-- TABLE CONSTRUCTION-->
+        <table id='table'>
+            <!-- HEADING FORMATION -->
+            <tr>
+                <th>Username</th>
+                <th>Feedback</th>
+                <th>Created timestamp</th>
+            </tr>
+            <script>
+
+                $(document).ready(function () {
+                    // FETCHING DATA FROM JSON FILE
+                    $.getJSON('word.json',
+                        function (data) {
+                            var Feedback_list = '';
+
+                            // ITERATING THROUGH OBJECTS
+                            $.each(data, function (key, value) {
+
+                                //CONSTRUCTION OF ROWS HAVING
+                                // DATA FROM JSON OBJECT
+                                Feedback_list += '<tr>';
+                                Feedback_list += '<td>' +
+                                    value.Username + '</td>';
+
+                                Feedback_list += '<td>' +
+                                    value.Feedback + '</td>';
+
+                                Feedback_list += '<td>' +
+                                    value.created_timestamp + '</td>';
+
+                                Feedback_list += '</tr>';
+                            });
+                            console.log(Feedback_list);
+                            //INSERTING ROWS INTO TABLE
+                            $('#table').append(Feedback_list);
+                        });
+                    $("button").click(function () {
+                        alert("Feedback Submited Succesfully");
+                    });
+                });
+            </script>
+    </section>
+</body>
+
+</html>
